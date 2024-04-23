@@ -37,7 +37,10 @@ interface User {
     bs: string;
   };
 }
-
+interface Login {
+  username: string;
+  password: string;
+}
 const ApiService = {
   getPost: async (): Promise<AxiosResponse<Post[]>> => { // Interfeysni qo'llash
     return axios.get(`${API_BASE_URL}/posts`);
@@ -47,6 +50,9 @@ const ApiService = {
   },
   getUsers: async (): Promise<User[]> => {
     return axios.get(`${API_BASE_URL}/users`);
+  },
+  Login: async (username: string, password: string): Promise<Login> => {
+    return axios.post(`${API_BASE_URL}/login`, { username, password });
   }
 };
 
