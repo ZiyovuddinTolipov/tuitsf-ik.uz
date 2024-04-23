@@ -1,15 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import ApiService from '../api/ApiService';
 import { useNavigate, Link } from 'react-router-dom';
-import moment from 'moment';
 import { toast } from 'react-hot-toast';
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<string>('');
-    const [vaqt, setVaqt] = useState<moment.Moment>(moment());
 
     const navigate = useNavigate();
 
@@ -34,14 +31,6 @@ const Login: React.FC = () => {
             toast.error('Tizimga kirishda muammo mavjud!');
         }
     };
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setVaqt(moment());
-        }, 1000);
-
-        return () => clearInterval(timer);
-    }, []);
 
 
     return (
