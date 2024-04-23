@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+table ,tr,td,th{
+  border: 1px solid rgb(150, 147, 147);
+  border-collapse: collapse;
+}
+
+$fontColor : #fff;
+svg{
+  width: 100px;
+  height: 100px;
+  margin: 20px;
+  display:inline-block;
+}
+
+
+//follow me template
+.made-with-love{
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 10px;
+  font-family: arial;
+  color: #fff;
+  i{
+    font-style: normal;
+    color: #fff;
+    font-size: 14px;
+    position: relative;
+    top: 2px;
+  }
+  a{
+    color: #fff;
+    text-decoration: none;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+}
