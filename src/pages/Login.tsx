@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState,useEffect } from 'react';
 import ApiService from '../api/ApiService';
 import { useNavigate, Link } from 'react-router-dom';
@@ -12,22 +13,7 @@ const Login: React.FC = () => {
 
     const navigate = useNavigate();
 
-    const handleLogin = async () => {
-        if (!username || !password) {
-            setError('Iltimos, barcha maydonlarni to\'ldiring.');
-            return;
-        }
 
-        const success = await ApiService.Login(username, password);
-
-        if (success) {
-            // Agar login muvaffaqiyatli bo'lsa, boshqa amallarni bajaramiz
-            // Masalan, foydalanuvchi ma'lumotlari saqlanadi yoki boshqa sahifaga yo'naltiriladi.
-            console.log('Muvaffaqiyatli kirdingiz!');
-        } else {
-            setError('Login muvaffaqiyatsiz, iltimos, ma\'lumotlarni tekshiring.');
-        }
-    };
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         if (!username || !password) {
             setError('Iltimos, barcha maydonlarni to\'ldiring.');
@@ -38,7 +24,7 @@ const Login: React.FC = () => {
         try {
             const response = await ApiService.Login(username, password);
             console.log(response);
-
+            navigate('/')
             // localStorage.setItem('token', response.data.Token);
             // localStorage.setItem('role', response.data.Status);
             // localStorage.setItem('full_name', response.data.name);
