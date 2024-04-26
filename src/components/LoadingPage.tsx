@@ -1,6 +1,6 @@
 const LoadingPage = () => {
     return (
-        <div className="flex items-center justify-center w-full h-[100vh]">
+        <div className="flex items-center justify-center w-full h-[100vh] loading-anima">
             <svg version="1.1" id="L1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 100 100" enableBackground="new 0 0 100 100">
                 <circle fill="none" stroke="#fff" strokeWidth={6} strokeMiterlimit={15} strokeDasharray="14.2472,14.2472" cx="50" cy="50" r="47">
                     <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="5s" from="0 50 50" to="360 50 50" repeatCount="indefinite" />
