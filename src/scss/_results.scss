@@ -1,0 +1,16 @@
+.results {
+    &_list {
+        li {
+            display: flex;
+            align-items: center;
+            gap:0.5rem;
+            padding:10px 12px ;
+            font-size: 1.2rem;
+            font-family: arial;
+            color: #fff;
+            background: #4825E7;
+            margin: 10px 0;
+            border-radius: 0.5rem;
+        }
+    }
+}
