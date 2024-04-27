@@ -38,7 +38,7 @@ const Dashboard = () => {
 
                     <ul className="flex  flex-col gap-2 text-white font-semibold">
                         <Link to='add-new-user' className='px-3 py-2 bg-blue-500 hover:bg-blue-600 transition rounded-md w-[200px] flex justify-between items-center' ><span>Yangi foydalanuvchi</span> <FaAddressBook /></Link>
-                        <li className='px-3 py-2 bg-red-500 hover:bg-red-600 transition rounded-md w-[200px] flex justify-between items-center' ><span>Chiqish</span> <FaArrowLeft size={23}/></li>
+                        <Link to="/" className='px-3 py-2 bg-red-500 hover:bg-red-600 transition rounded-md w-[200px] flex justify-between items-center' ><span>Chiqish</span> <FaArrowLeft size={23}/></Link>
                     </ul>
                 </div>
                 <div className="flex min-h-screen flex-1 flex-col px-4 pb-6 pt-20 md:pt-32  max-md:pb-14 sm:px-14">
