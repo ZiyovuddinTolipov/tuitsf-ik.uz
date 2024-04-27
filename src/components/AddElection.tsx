@@ -59,8 +59,7 @@ const NewElections: React.FC = () => {
         setJobDeadline("");
         setCandidates([{ name: "" }, { name: "" }]);
         setFormModified(false);
-        setFormModified(false);
-        window.confirm("Natijalar sahifasida ko'rishingiz mumkun yaratilgan so'rovnomani.Natijalar sahifasiga o'tamizmi ?")?navigate("/dashboard"):'';
+        // window.confirm("Natijalar sahifasida ko'rishingiz mumkun yaratilgan so'rovnomani.Natijalar sahifasiga o'tamizmi ?")?navigate("/dashboard"):'';
     };
 
     const handleLink = (url: string, event: React.MouseEvent<HTMLAnchorElement>) => {
