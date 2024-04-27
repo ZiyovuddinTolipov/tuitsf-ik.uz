@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaRegNewspaper, FaTable } from "react-icons/fa";
+import { toast } from "react-hot-toast"
 
 const NewElections: React.FC = () => {
     const navigate = useNavigate();
@@ -14,10 +15,11 @@ const NewElections: React.FC = () => {
         if (lastCandidate.name !== "" && candidates.length < 7) {
             setCandidates([...candidates, { name: "" }]);
         } else if (candidates.length === 7) {
-            alert("Siz yana 7 ta saylanuvchi qo'shishingiz mumkin emas!");
+            toast.error("Siz yana 7 ta saylanuvchi qo'shishingiz mumkin emas!");
         } else {
-            alert("Barcha maydonlarni to'ldiring!");
+            toast.error("Barcha maydonlarni to'ldiring!");
         }
+        console.log(formModified);
     };
 
     const handleCandidateChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +54,13 @@ const NewElections: React.FC = () => {
         };
 
         console.log(obj);
+        toast.success("So'rovnoma yaratildi!");
+        setJobPosition("");
+        setJobDeadline("");
+        setCandidates([{ name: "" }, { name: "" }]);
         setFormModified(false);
+        setFormModified(false);
+        window.confirm("Natijalar sahifasida ko'rishingiz mumkun yaratilgan so'rovnomani.Natijalar sahifasiga o'tamizmi ?")?navigate("/dashboard"):'';
     };
 
     const handleLink = (url: string, event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -73,12 +81,15 @@ const NewElections: React.FC = () => {
 
     const listElementClass = "flex items-center gap-2 px-3 py-2 bg-primary-300 hover:bg-primary-200 transition rounded-md text-primary-50";
 
+    const style = {
+        input:"input input-bordered input-primary w-full max-w-xs bg-primary-50 text-primary-300"
+    }
     return (
         <div>
             <header className='mb-4'>
                 <ul className="flex gap-2 text-white font-semibold w-[400px]">
-                    <Link to='/dashboard/' onClick={(event) => handleLink('/dashboard/', event)} className={`${listElementClass} ${formModified ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={formModified}><FaTable /> <span>Natijalar</span></Link>
-                    <Link to='/dashboard/add-new-election' onClick={(event) => handleLink('/dashboard/add-new-election', event)} className={`${listElementClass} ${formModified ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={formModified}><FaRegNewspaper /><span>So'rovnoma yaratish</span></Link>
+                    <Link to='/dashboard/' onClick={(event) => handleLink('/dashboard/', event)} className={`${listElementClass}`} ><FaTable /> <span>Natijalar</span></Link>
+                    <Link to='/dashboard/add-new-election' onClick={(event) => handleLink('/dashboard/add-new-election', event)} className={`${listElementClass} `} ><FaRegNewspaper /><span>So'rovnoma yaratish</span></Link>
                 </ul>
             </header>
             <form onSubmit={handleSubmit} className="flex flex-col items-start justify-start text-left w-full gap-3">
@@ -87,7 +98,7 @@ const NewElections: React.FC = () => {
                     <input
                         type="text"
                         placeholder="Lavozimni kiriting"
-                        className="input input-bordered input-primary w-full max-w-xs bg-primary-50 text-primary-300"
+                        className={style.input}
                         value={jobPosition}
                         onChange={(e) => setJobPosition(e.target.value)}
                     />
@@ -97,7 +108,7 @@ const NewElections: React.FC = () => {
                     <input
                         type="text"
                         placeholder="soatda kiriting"
-                        className="input input-bordered input-primary w-full max-w-xs bg-primary-50 text-primary-300"
+                        className={style.input}
                         value={jobDeadline}
                         onChange={handleJobDeadlineChange}
                     />
@@ -110,14 +121,14 @@ const NewElections: React.FC = () => {
                             placeholder="To'liq ism familiya"
                             value={candidate.name}
                             onChange={(e) => handleCandidateChange(index, e)}
-                            className="input input-bordered input-primary w-full max-w-xs bg-primary-50 text-primary-300"
+                            className={style.input}
                         />
                     </label>
                 ))}
                 {candidates.length < 7 && (
                     <button className="btn btn-primary max-w-xs w-full" type="button" onClick={addCandidateInput} disabled={!areAllCandidatesEntered}>Yangi saylanuvchini qo'shish</button>
                 )}
-                <button className="btn btn-primary block max-w-xs w-full my-3" type="submit" disabled={!areAllCandidatesEntered }>Saqlash</button>
+                <button className="btn btn-primary block max-w-xs w-full my-3" type="submit" disabled={!areAllCandidatesEntered}>Saqlash</button>
             </form>
         </div>
     );
