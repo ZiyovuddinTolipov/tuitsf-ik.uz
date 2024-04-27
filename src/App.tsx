@@ -8,6 +8,7 @@ import NotFound from './components/NotFound'
 import { Toaster } from "react-hot-toast";
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import Me from './pages/Me';
 
 
 const MyComponent: React.FC = () => {
@@ -15,8 +16,8 @@ const MyComponent: React.FC = () => {
     const routes = useRoutes([
       { path: '/', element: <Login /> },
       { path: '/login', element: <Login /> },
-      {path: '/dashboard/*',element: <Dashboard />
-      },
+      {path: '/dashboard/*',element: <Dashboard />},
+      {path: '/me/*',element: <Me />},
       { path: '*', element: <NotFound /> }
     ]);
     useEffect(() => {
