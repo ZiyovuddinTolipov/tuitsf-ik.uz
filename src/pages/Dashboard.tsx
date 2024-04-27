@@ -7,6 +7,7 @@ import Results from "../components/Results";
 import AddNewUser from "../components/AddNewUser";
 import AddNewDoc from '../components/AddNewDoc'
 import AddElection from "../components/AddElection";
+import ResultElection from "../components/ResultElections";
 
 // import {useNavigation} from "react-router-dom"
 
@@ -46,6 +47,7 @@ const Dashboard = () => {
                         <Route path="/add-new-user" element={<AddNewUser />} />
                         <Route path="/add-new-file" element={<AddNewDoc />} />
                         <Route path="/add-new-election" element={<AddElection />} />
+                        <Route path="/results" element={<ResultElection />} />
                         <Route path="/" element={<Results />} />
                     </Routes>
 
