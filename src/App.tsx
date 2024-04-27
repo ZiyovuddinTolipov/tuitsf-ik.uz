@@ -1,7 +1,10 @@
+import {useEffect} from 'react'
 import { useRoutes } from 'react-router-dom';
-// import Users from './components/Users'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 import NotFound from './components/NotFound'
-import Home from './pages/Home';
+// import Home from './pages/Home';
 import { Toaster } from "react-hot-toast";
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
@@ -16,6 +19,12 @@ const MyComponent: React.FC = () => {
       },
       { path: '*', element: <NotFound /> }
     ]);
+    useEffect(() => {
+      AOS.init({
+        duration: 1000
+      });
+      AOS.refresh();
+    }, []);
     return (
       <main>
         <Toaster

@@ -1,10 +1,12 @@
 
 
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Link } from "react-router-dom"
 import { FaAddressBook,FaFile ,FaRegNewspaper ,FaTable  ,FaArrowLeft  } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import Results from "../components/Results";
 import AddNewUser from "../components/AddNewUser";
+import AddNewDoc from '../components/AddNewDoc'
+
 // import {useNavigation} from "react-router-dom"
 
 const Dashboard = () => {
@@ -28,19 +30,20 @@ const Dashboard = () => {
 
                     <ul className="flex  flex-col gap-2 text-white font-semibold w-[200px]">
 
-                        <li className={sty.listElement} ><FaFile /> <span>Fayl qo'shish</span></li>
-                        <li className={sty.listElement} ><FaRegNewspaper /><span>So'rovnoma yaratish</span></li>
-                        <li className={sty.listElement} ><FaTable /> <span>Natijalar</span></li>
+                        <Link to='' className={sty.listElement} ><FaTable /> <span>Natijalar</span></Link>
+                        <Link to='add-new-file' className={sty.listElement} ><FaFile /> <span>Fayl qo'shish</span></Link>
+                        <Link to='add-new-election' className={sty.listElement} ><FaRegNewspaper /><span>So'rovnoma yaratish</span></Link>
                     </ul>
 
                     <ul className="flex  flex-col gap-2 text-white font-semibold">
-                        <li className='px-3 py-2 bg-blue-500 hover:bg-blue-600 transition rounded-md w-[200px] flex justify-between items-center' ><span>Yangi foydalanuvchi</span> <FaAddressBook /></li>
+                        <Link to='add-new-user' className='px-3 py-2 bg-blue-500 hover:bg-blue-600 transition rounded-md w-[200px] flex justify-between items-center' ><span>Yangi foydalanuvchi</span> <FaAddressBook /></Link>
                         <li className='px-3 py-2 bg-red-500 hover:bg-red-600 transition rounded-md w-[200px] flex justify-between items-center' ><span>Chiqish</span> <FaArrowLeft size={23}/></li>
                     </ul>
                 </div>
                 <div className="flex min-h-screen flex-1 flex-col px-4 pb-6 pt-20 md:pt-32  max-md:pb-14 sm:px-14">
                     <Routes >
                         <Route path="/add-new-user" element={<AddNewUser />} />
+                        <Route path="/add-new-file" element={<AddNewDoc />} />
                         <Route path="/" element={<Results />} />
                     </Routes>
 

@@ -7,4 +7,4 @@ const AddNewUser = () => {
     )
 }
 
-export default AddNewUser
+export default AddNewUser;
