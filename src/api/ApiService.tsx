@@ -22,7 +22,6 @@ interface NewPoll {
   que7?:string;
 }
 interface PollAdmin {
-  [x: string]: any;
   id: number;
   poll_que: string;
   que1: string | null;
