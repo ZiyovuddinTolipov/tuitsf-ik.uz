@@ -1,10 +1,10 @@
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import ApiService, { PollData } from "../api/ApiService"; // Assuming ApiService returns PollData type
+import ApiService from "../api/ApiService"; // Assuming ApiService returns PollData type
 import LoadingPage from "./LoadingPage";
 const Results: React.FC = () => {
     const [searchParams] = useSearchParams();
-    const [pollData, setPollData] = useState<PollData | null>(null);
+    const [pollData, setPollData] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -18,6 +18,7 @@ const Results: React.FC = () => {
                 const res = await ApiService.GetElectionResults(id);
                 setPollData(res.data);
                 setLoading(false);
+                console.log(res);
             } catch (error) {
                 setError(error.message);
                 setLoading(false);

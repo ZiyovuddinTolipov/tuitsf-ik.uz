@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { FiDownload } from "react-icons/fi";
-import ApiService, { Document } from "../api/ApiService";
+import ApiService  from "../api/ApiService";
 import toast from "react-hot-toast";
 
 const AllDocs: React.FC = () => {
-    const [documents, setDocuments] = useState<Document>([]);
+    const [documents, setDocuments] = useState<any>([]);
 
     useEffect(() => {
         const fetchDocuments = async () => {

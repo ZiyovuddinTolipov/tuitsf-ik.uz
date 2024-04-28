@@ -48,13 +48,15 @@ const Results: React.FC = () => {
     const calculateRemainingTime = (endTime: string, duration: number): string => {
         const startDateTime: Moment = moment(endTime);
         const endDateTime: Moment = startDateTime.clone().add(duration, 'hours');
-        const remainingTime: Moment = endDateTime.diff(moment(), 'seconds');
+        const remainingTime: number = endDateTime.diff(moment(), 'seconds');
         const days: number = Math.floor(remainingTime / (60 * 60 * 24));
         const hours: number = Math.floor((remainingTime % (60 * 60 * 24)) / (60 * 60));
         const minutes: number = Math.floor((remainingTime % (60 * 60)) / 60);
         const seconds: number = remainingTime % 60;
         return `${days}k ${hours}s ${minutes}m ${seconds}son`;
     };
+    
+    
 
     // Function to format date using moment.js
     const formatDate = (dateString: string): string => {

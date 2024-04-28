@@ -94,7 +94,7 @@ interface Poll {
   };
 }
 interface Document {
-  description?:string;
+  description:string;
   id:number;
   file:string;
 }
