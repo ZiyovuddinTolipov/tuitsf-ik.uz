@@ -93,6 +93,11 @@ interface Poll {
       que7: number | null;
   };
 }
+interface Document {
+  description?:string;
+  id:number;
+  file:string;
+}
 
 // Define the ApiResponse interface representing the structure of the API response
 interface GetAllPollAdminResponseInterface {
@@ -194,6 +199,18 @@ AddFile: async (file: File, description: string): Promise<any> => {
       return response.data;
   } catch (error) {
       throw new Error("Failed to add file");
+  }
+},
+GetAllFiles: async (): Promise<Document> => {
+  try {
+      const response = await axios.get(`${API_Url}/allfiles/`,  {
+          headers: {
+              "Authorization": `Token ${localStorage.getItem('token')}`
+          }
+      });
+      return response.data;
+  } catch (error) {
+      throw new Error("Failed to fetch files");
   }
 }
 };
