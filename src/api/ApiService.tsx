@@ -38,7 +38,6 @@ interface User {
   };
 }
 interface Login {
-  [x: string]: any;
   status: number;
   username: string;
   password: string;
@@ -54,12 +53,26 @@ const ApiService = {
     return axios.get(`${API_BASE_URL}/users`);
   },
   Login: async (username: string, password: string): Promise<Login> => {
-    return axios.post(`${API_Url}/user/login/`, null , {
-      headers:{
+    return axios.post(`${API_Url}/user/login/`, null, {
+      headers: {
         "Authorization": `Basic ${btoa(`${username}:${password}`)}`
       }
     });
-  }
+  },
+  CreateNewUser: async (username: string, password: string, first_name: string): Promise<Login> => {
+    return axios.post(`${API_Url}/user/create/`,
+      {
+        "username": username,
+        "password": password,
+        "first_name": first_name
+      }
+      , {
+        headers: {
+          "Authorization": `Token ${localStorage.getItem('token')}`
+        }
+      });
+  },
+
 };
 
 export default ApiService;

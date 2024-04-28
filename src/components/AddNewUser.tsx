@@ -1,14 +1,18 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import {toast} from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
+import ApiService from '../api/ApiService';
+
 interface UserData {
     username: string;
     password: string;
+    full_name: string;
 }
 
 const AddNewUser: React.FC = () => {
     const [userData, setUserData] = useState<UserData>({
         username: '',
-        password: ''
+        password: '',
+        full_name: ''
     });
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -19,13 +23,16 @@ const AddNewUser: React.FC = () => {
         }));
     };
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit =async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('User data:', userData);
+
+        const response = await ApiService.CreateNewUser(userData.username, userData.password,userData.full_name);
+        console.log('User data:', response);
         toast.success('Yangi foydalanuvchi qo\'shildi!');
         setUserData({
             username: '',
-            password: ''
+            password: '',
+            full_name: ''
         });
     };
 
@@ -35,6 +42,17 @@ const AddNewUser: React.FC = () => {
 
     return (
         <form onSubmit={handleSubmit}>
+            <label className="form-control w-full max-w-xs">
+                <span className="label-text my-1">FISH</span>
+                <input
+                    type="text"
+                    name="full_name"
+                    placeholder="Tolipov Ziyovuddin"
+                    className={style.input}
+                    value={userData.full_name}
+                    onChange={handleChange}
+                />
+            </label>
             <label className="form-control w-full max-w-xs">
                 <span className="label-text my-1">Foydalanuvchi nomi</span>
                 <input
