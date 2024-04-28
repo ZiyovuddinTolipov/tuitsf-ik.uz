@@ -42,6 +42,20 @@ interface Login {
   username: string;
   password: string;
 }
+interface NewUser {
+  token: string;
+}
+interface NewPoll {
+  poll_que:string;
+  time:string;
+  que1:string;
+  que2:string;
+  que3?:string;
+  que4?:string;
+  que5?:string;
+  que6?:string;
+  que7?:string;
+}
 const ApiService = {
   getPost: async (): Promise<AxiosResponse<Post[]>> => { // Interfeysni qo'llash
     return axios.get(`${API_BASE_URL}/posts`);
@@ -59,13 +73,22 @@ const ApiService = {
       }
     });
   },
-  CreateNewUser: async (username: string, password: string, first_name: string): Promise<Login> => {
+  CreateNewUser: async (username: string, password: string, first_name: string): Promise<NewUser> => {
     return axios.post(`${API_Url}/user/create/`,
       {
         "username": username,
         "password": password,
         "first_name": first_name
       }
+      , {
+        headers: {
+          "Authorization": `Token ${localStorage.getItem('token')}`
+        }
+      });
+  },
+  CreateNewPoll: async (obj: object): Promise<NewPoll> => {
+    return axios.post(`${API_Url}/poll/create/`,
+      obj
       , {
         headers: {
           "Authorization": `Token ${localStorage.getItem('token')}`

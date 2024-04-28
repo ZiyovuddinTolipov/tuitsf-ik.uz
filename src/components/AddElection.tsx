@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaRegNewspaper, FaTable } from "react-icons/fa";
 import { toast } from "react-hot-toast"
+import ApiService from '../api/ApiService';
 
 const NewElections: React.FC = () => {
     const navigate = useNavigate();
@@ -41,17 +42,19 @@ const NewElections: React.FC = () => {
         }
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const obj = {
-            lavozim: jobPosition,
-            jobDeadline: jobDeadline,
+            poll_que: jobPosition,
+            time: jobDeadline,
             ...candidates.reduce((acc, candidate, index) => {
-                acc[`saylanuvchi${index + 1}`] = candidate.name;
+                acc[`que${index + 1}`] = candidate.name;
                 return acc;
             }, {} as { [key: string]: string })
         };
+        const response = await ApiService.CreateNewPoll(obj);
+        console.log('User data:', response);
 
         console.log(obj);
         toast.success("So'rovnoma yaratildi!");

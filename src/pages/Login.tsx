@@ -25,9 +25,12 @@ const Login: React.FC = () => {
             const response = await ApiService.Login(username, password);
             localStorage.setItem('token', response.data.token);
             response.status === 200? toast.success("Tizimga kirdingiz!"): toast.error("Xatolik" + response.status);
-
+            console.log(response)
             if(response.data.staff=='admin'){
                 navigate('/dashboard');
+            }
+            if(response.data.staff=='user'){
+                navigate('/me');
             }
             // console.log(response);
             // navigate('/')
