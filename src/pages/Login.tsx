@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import ApiService from '../api/ApiService'; // Replace with your actual API service
-import { useNavigate,Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import LoadingPage from '../components/LoadingPage';
 
-
+// interface LoginResponse {
+//     status: boolean;
+//     staff: string; // User type (e.g., 'admin', 'user')
+//     token: string;
+// }
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState<string>('');
@@ -27,24 +31,22 @@ const Login: React.FC = () => {
         try {
             const response = await ApiService.Login(username, password);
 
-            localStorage.setItem('token', response.data.token); // Store token securely
-
-            if (response.status === 200) { // Assuming successful login has status 200
+            if (response.staff) { // Assuming successful login has status true
                 toast.success('Login successful!');
+                localStorage.setItem('token', response.token);
 
-                // Redirect based on user type (secure approach)
-                if (response.data.staff === 'admin') {
+                if (response.staff == 'admin') {
                     navigate('/dashboard');
-                } else if (response.data.staff === 'user') {
+                } else if (response.staff == 'user') {
                     navigate('/me');
                 } else {
                     // Handle unexpected user type or invalid response (security measure)
-                    console.error('Unexpected user type in response:', response.data.staff);
+                    console.error('Unexpected user type in response:', response.staff);
                     setError('Login failed. Please contact support.');
                     localStorage.removeItem('token'); // Remove potentially invalid token
                 }
             } else {
-                toast.error(`Login error: ${response.status}`);
+                toast.error(`Login error: ${response.status || 'Unknown error'}`); // Provide default message or use API error message if available
                 setError('Login failed. Please check your credentials.');
             }
         } catch (error) {
@@ -55,7 +57,6 @@ const Login: React.FC = () => {
             setLoading(false); // Hide loading indicator
         }
     };
-
     if (loading) return <LoadingPage />;
     return (
         <section className="bg-primary-300">

@@ -3,8 +3,9 @@ import axios from 'axios';
 
 const API_Url = 'https://voteappstaff.pythonanywhere.com'
 interface Login {
-  data: any;
-  status: number;
+  token: string;
+  staff: string;
+  status:boolean;
   username: string;
   password: string;
 }
