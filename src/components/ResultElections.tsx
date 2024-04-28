@@ -2,6 +2,8 @@ import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ApiService from "../api/ApiService"; // Assuming ApiService returns PollData type
 import LoadingPage from "./LoadingPage";
+
+
 const Results: React.FC = () => {
     const [searchParams] = useSearchParams();
     const [pollData, setPollData] = useState<any>(null);
@@ -20,8 +22,7 @@ const Results: React.FC = () => {
                 setLoading(false);
                 console.log(res);
             } catch (error) {
-                setError(error.message);
-                setLoading(false);
+                setError((error as Error).message); // Cast error to Error and access message
             }
         };
 

@@ -39,7 +39,7 @@ interface User {
   };
 }
 interface Login {
-  status: number;
+  status:number ;
   username: string;
   password: string;
 }
@@ -152,21 +152,14 @@ interface addFileInterface {
   status: boolean;
 }
 const ApiService = {
-  getPost: async (): Promise<AxiosResponse<Post[]>> => { // Interfeysni qo'llash
-    return axios.get(`${API_BASE_URL}/posts`);
-  },
-  getPhotos: async (): Promise<Photos[]> => {
-    return axios.get(`${API_BASE_URL}/photos`);
-  },
-  getUsers: async (): Promise<User[]> => {
-    return axios.get(`${API_BASE_URL}/users`);
-  },
   Login: async (username: string, password: string): Promise<Login> => {
-    return axios.post(`${API_Url}/user/login/`, null, {
+    console.log(username + ' ' + password)
+    const response  = axios.post(`${API_Url}/user/login/`,{}, {
       headers: {
         "Authorization": `Basic ${btoa(`${username}:${password}`)}`
       }
     });
+    return response;
   },
   CreateNewUser: async (username: string, password: string, first_name: string): Promise<NewUser> => {
     return axios.post(`${API_Url}/user/create/`,

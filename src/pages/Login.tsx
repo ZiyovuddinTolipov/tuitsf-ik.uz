@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ApiService from '../api/ApiService';
+import ApiService from '../api/ApiService'; // Replace with your actual API service
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import LoadingPage from '../components/LoadingPage';
@@ -8,11 +8,11 @@ interface LoginResponse {
     data: {
         token: string;
         staff: string;
-        status:boolean;
+        status: boolean;
         // Add other properties if necessary
     };
-    config:object;
-    statusText:string;
+    config: object;
+    statusText: string;
     status: number; // Assuming the response has a status property
     // Add other properties if necessary
 }
@@ -25,30 +25,33 @@ const Login: React.FC = () => {
 
     const navigate = useNavigate();
 
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         if (!username || !password) {
-            setError('Iltimos, barcha maydonlarni to\'ldiring.');
+            setError('Please fill in all fields.');
             return;
         }
 
         e.preventDefault();
+        setLoading(true); // Show loading indicator
+
         try {
             const response: LoginResponse = await ApiService.Login(username, password);
-            console.log(response);
-            
+
             localStorage.setItem('token', response.data.token);
-            response.status === 200 ? toast.success("Tizimga kirdingiz!") : toast.error("Xatolik" + response.status);
+            response.status === 200
+                ? toast.success('Login successful!')
+                : toast.error(`Error: ${response.status}`);
+
             if (response.data.staff === 'admin') {
                 navigate('/dashboard');
-            }
-            if (response.data.staff === 'user') {
+            } else if (response.data.staff === 'user') {
                 navigate('/me');
             }
         } catch (error) {
-            toast.error('Tizimga kirishda muammo mavjud!');
+            toast.error('Login failed!');
+            console.error('Login error:', error); // Log the error for debugging
         } finally {
-            setLoading(false);
+            setLoading(false); // Hide loading indicator
         }
     };
 
