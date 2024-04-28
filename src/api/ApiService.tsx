@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 const API_BASE_URL = 'https://jsonplaceholder.typicode.com';
-
+const API_Url = 'https://voteappstaff.pythonanywhere.com'
 interface Post {
   userId: number;
   id: number;
@@ -38,6 +38,8 @@ interface User {
   };
 }
 interface Login {
+  [x: string]: any;
+  status: number;
   username: string;
   password: string;
 }
@@ -52,7 +54,11 @@ const ApiService = {
     return axios.get(`${API_BASE_URL}/users`);
   },
   Login: async (username: string, password: string): Promise<Login> => {
-    return axios.post(`${API_BASE_URL}/login`, { username, password });
+    return axios.post(`${API_Url}/user/login/`, null , {
+      headers:{
+        "Authorization": `Basic ${btoa(`${username}:${password}`)}`
+      }
+    });
   }
 };
 

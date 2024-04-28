@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import ApiService from '../api/ApiService';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import LoadingPage from '../components/LoadingPage';
+
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
 
     const navigate = useNavigate();
@@ -20,19 +23,22 @@ const Login: React.FC = () => {
         e.preventDefault();
         try {
             const response = await ApiService.Login(username, password);
-            console.log(response);
-            navigate('/')
-            // localStorage.setItem('token', response.data.Token);
-            // localStorage.setItem('role', response.data.Status);
-            // localStorage.setItem('full_name', response.data.name);
-            // localStorage.setItem('username', response.data.username);
+            localStorage.setItem('token', response.data.token);
+            response.status === 200? toast.success("Tizimga kirdingiz!"): toast.error("Xatolik" + response.status);
 
+            if(response.data.staff=='admin'){
+                navigate('/dashboard');
+            }
+            // console.log(response);
+            // navigate('/')
         } catch (error) {
             toast.error('Tizimga kirishda muammo mavjud!');
+        }finally {
+            setLoading(false);
         }
     };
 
-
+    if (loading) return <LoadingPage />;
     return (
         <section className="bg-primary-300">
         <div className="flex h-screen flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
