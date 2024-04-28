@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const API_Url = 'https://voteappstaff.pythonanywhere.com'
 interface Login {
-  status:number ;
+  status: number;
   username: string;
   password: string;
 }
@@ -11,17 +11,18 @@ interface NewUser {
   token: string;
 }
 interface NewPoll {
-  poll_que:string;
-  time:string;
-  que1:string;
-  que2:string;
-  que3?:string;
-  que4?:string;
-  que5?:string;
-  que6?:string;
-  que7?:string;
+  poll_que: string;
+  time: string;
+  que1: string;
+  que2: string;
+  que3?: string;
+  que4?: string;
+  que5?: string;
+  que6?: string;
+  que7?: string;
 }
 interface PollAdmin {
+  [x: string]: any;
   id: number;
   poll_que: string;
   que1: string | null;
@@ -37,7 +38,7 @@ interface PollAdmin {
 interface Poll {
   id: number;
   poll_que: string;
-  que1: string ;
+  que1: string;
   que2: string;
   que3: string | null;
   que4: string | null;
@@ -47,19 +48,19 @@ interface Poll {
   time: number;
   created_at: string;
   statistic: {
-      que1: number;
-      que2: number;
-      que3: number | null;
-      que4: number | null;
-      que5: number | null;
-      que6: number | null;
-      que7: number | null;
+    que1: number;
+    que2: number;
+    que3: number | null;
+    que4: number | null;
+    que5: number | null;
+    que6: number | null;
+    que7: number | null;
   };
 }
 interface Document {
-  description:string;
-  id:number;
-  file:string;
+  description: string;
+  id: number;
+  file: string;
 }
 
 // Define the ApiResponse interface representing the structure of the API response
@@ -68,10 +69,10 @@ interface GetAllPollAdminResponseInterface {
   status: number;
   statusText: string;
   headers: {
-      "content-type": string;
+    "content-type": string;
   };
   config: {
-      // Define the configuration properties if needed
+    // Define the configuration properties if needed
   };
 }
 interface UserData {
@@ -85,29 +86,29 @@ interface AllUserInterfaces {
   status: number;
   statusText: string;
   headers: {
-      [key: string]: string;
+    [key: string]: string;
   };
   config: {
-      transitional: {
-          silentJSONParsing: boolean;
-          forcedJSONParsing: boolean;
-          clarifyTimeoutError: boolean;
-      };
-      adapter: string[];
-      transformRequest: null[];
-      transformResponse: null[];
-      timeout: number;
-      xsrfCookieName: string;
-      xsrfHeaderName: string;
-      maxContentLength: number;
-      maxBodyLength: number;
-      env: object;
-      headers: {
-          Accept: string;
-          Authorization: string;
-      };
-      method: string;
-      url: string;
+    transitional: {
+      silentJSONParsing: boolean;
+      forcedJSONParsing: boolean;
+      clarifyTimeoutError: boolean;
+    };
+    adapter: string[];
+    transformRequest: null[];
+    transformResponse: null[];
+    timeout: number;
+    xsrfCookieName: string;
+    xsrfHeaderName: string;
+    maxContentLength: number;
+    maxBodyLength: number;
+    env: object;
+    headers: {
+      Accept: string;
+      Authorization: string;
+    };
+    method: string;
+    url: string;
   };
   request: object;
 }
@@ -116,13 +117,15 @@ interface addFileInterface {
 }
 const ApiService = {
   Login: async (username: string, password: string): Promise<Login> => {
-    console.log(username + ' ' + password)
-    const response  = axios.post(`${API_Url}/user/login/`,{}, {
+    console.log(username + ' ' + password);
+    const response = await axios.post(`${API_Url}/user/login/`, {}, {
       headers: {
         "Authorization": `Basic ${btoa(`${username}:${password}`)}`
       }
     });
-    return response;
+
+    // Type assertion (cautious approach)
+    return response.data as Login; // Cast the response data to Login
   },
   CreateNewUser: async (username: string, password: string, first_name: string): Promise<NewUser> => {
     return axios.post(`${API_Url}/user/create/`,
@@ -146,69 +149,69 @@ const ApiService = {
         }
       });
   },
-  GetAllPollAdmin :async (): Promise<PollAdmin> => {
+  GetAllPollAdmin: async (): Promise<PollAdmin> => {
     return axios.get(`${API_Url}/allpoll/get/`, {
-        headers: {
-          "Authorization": `Token ${localStorage.getItem('token')}`
-        }
-      });
+      headers: {
+        "Authorization": `Token ${localStorage.getItem('token')}`
+      }
+    });
   },
-  GetElectionResults:async (id:string): Promise<GetAllPollAdminResponseInterface> => {
-    return axios.post(`${API_Url}/poll/statistic/`,{"id":id}, {
-        headers: {
-          "Authorization": `Token ${localStorage.getItem('token')}`
-        }
-      });
+  GetElectionResults: async (id: string): Promise<GetAllPollAdminResponseInterface> => {
+    return axios.post(`${API_Url}/poll/statistic/`, { "id": id }, {
+      headers: {
+        "Authorization": `Token ${localStorage.getItem('token')}`
+      }
+    });
   },
-  GetAllUsers :async (): Promise<AllUserInterfaces> => {
+  GetAllUsers: async (): Promise<AllUserInterfaces> => {
     return axios.get(`${API_Url}/get/all/users/`, {
-        headers: {
-          "Authorization": `Token ${localStorage.getItem('token')}`
-        }
-      });
+      headers: {
+        "Authorization": `Token ${localStorage.getItem('token')}`
+      }
+    });
   },
   DeleteUser: async (id: number): Promise<any> => {
     try {
-        const response = await axios.delete(`${API_Url}/user/delete/`, {
-            data: { "user_id":id }, // Pass id in the data object
-            headers: {
-                "Authorization": `Token ${localStorage.getItem('token')}`
-            }
-        });
-        return response.data;
+      const response = await axios.delete(`${API_Url}/user/delete/`, {
+        data: { "user_id": id }, // Pass id in the data object
+        headers: {
+          "Authorization": `Token ${localStorage.getItem('token')}`
+        }
+      });
+      return response.data;
     } catch (error) {
-        throw new Error("Failed to delete user");
+      throw new Error("Failed to delete user");
     }
-},
-AddFile: async (file: File, description: string): Promise<addFileInterface> => {
-  try {
+  },
+  AddFile: async (file: File, description: string): Promise<addFileInterface> => {
+    try {
       const formData = new FormData();
       formData.append('file', file);
       formData.append('description', description);
 
       const response = await axios.post(`${API_Url}/add/file/`, formData, {
-          headers: {
-              "Content-Type": "multipart/form-data",
-              "Authorization": `Token ${localStorage.getItem('token')}`
-          }
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": `Token ${localStorage.getItem('token')}`
+        }
       });
       return response.data;
-  } catch (error) {
+    } catch (error) {
       throw new Error("Failed to add file");
-  }
-},
-GetAllFiles: async (): Promise<Document[]> => {
-  try {
-      const response = await axios.get(`${API_Url}/allfiles/`,  {
-          headers: {
-              "Authorization": `Token ${localStorage.getItem('token')}`
-          }
+    }
+  },
+  GetAllFiles: async (): Promise<Document[]> => {
+    try {
+      const response = await axios.get(`${API_Url}/allfiles/`, {
+        headers: {
+          "Authorization": `Token ${localStorage.getItem('token')}`
+        }
       });
       return response.data as Document[];
-  } catch (error) {
+    } catch (error) {
       throw new Error("Failed to fetch files");
+    }
   }
-}
 };
 
 export default ApiService;

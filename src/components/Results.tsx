@@ -25,10 +25,10 @@ const Results: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await ApiService.GetAllPollAdmin();
-                setPollData(res.data);
+                const { data: pollData } = await ApiService.GetAllPollAdmin();
+                setPollData(pollData);
             } catch (error) {
-                console.error('Xato:', error);
+                // Handle errors
                 toast.error('Ma\'lumotlarni olishda xatolik yuz berdi.');
             }
         };
