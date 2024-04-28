@@ -111,6 +111,46 @@ interface GetAllPollAdminResponseInterface {
       // Define the configuration properties if needed
   };
 }
+interface UserData {
+  id: number;
+  username: string;
+  firstname: string;
+}
+
+interface AllUserInterfaces {
+  data: UserData[];
+  status: number;
+  statusText: string;
+  headers: {
+      [key: string]: string;
+  };
+  config: {
+      transitional: {
+          silentJSONParsing: boolean;
+          forcedJSONParsing: boolean;
+          clarifyTimeoutError: boolean;
+      };
+      adapter: string[];
+      transformRequest: null[];
+      transformResponse: null[];
+      timeout: number;
+      xsrfCookieName: string;
+      xsrfHeaderName: string;
+      maxContentLength: number;
+      maxBodyLength: number;
+      env: object;
+      headers: {
+          Accept: string;
+          Authorization: string;
+      };
+      method: string;
+      url: string;
+  };
+  request: object;
+}
+interface addFileInterface {
+  status: boolean;
+}
 const ApiService = {
   getPost: async (): Promise<AxiosResponse<Post[]>> => { // Interfeysni qo'llash
     return axios.get(`${API_BASE_URL}/posts`);
@@ -164,14 +204,14 @@ const ApiService = {
         }
       });
   },
-  GetAllUsers :async (): Promise<PollAdmin> => {
+  GetAllUsers :async (): Promise<AllUserInterfaces> => {
     return axios.get(`${API_Url}/get/all/users/`, {
         headers: {
           "Authorization": `Token ${localStorage.getItem('token')}`
         }
       });
   },
-  DeleteUser: async (id: number): Promise<any> => {
+  DeleteUser: async (id: number): Promise<addFileInterface> => {
     try {
         const response = await axios.delete(`${API_Url}/user/delete/`, {
             data: { "user_id":id }, // Pass id in the data object
@@ -184,7 +224,7 @@ const ApiService = {
         throw new Error("Failed to delete user");
     }
 },
-AddFile: async (file: File, description: string): Promise<any> => {
+AddFile: async (file: File, description: string): Promise<addFileInterface> => {
   try {
       const formData = new FormData();
       formData.append('file', file);

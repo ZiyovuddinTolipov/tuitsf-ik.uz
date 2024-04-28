@@ -14,7 +14,8 @@ const AddNewDoc: React.FC = () => {
         const description = formData.get('description') as string;
 
         try {
-            await ApiService.AddFile(file, description);
+            const res= await ApiService.AddFile(file, description);
+            console.log(res);
             toast.success("Hujjat qo'shildi!");
             if (formRef.current) {
                 formRef.current.reset();

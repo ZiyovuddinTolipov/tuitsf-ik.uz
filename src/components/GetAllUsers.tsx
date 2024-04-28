@@ -21,6 +21,7 @@ const Results: React.FC = () => {
         const fetchUserData = async () => {
             try {
                 const res = await ApiService.GetAllUsers();
+                console.log(res);
                 setUserData(res.data.filter((user: { id: number; }) => user.id !== 1));
                 setLoading(false);
             } catch (error) {
@@ -38,11 +39,12 @@ const Results: React.FC = () => {
         console.log(typeof id);
         if (confirmDelete) {
             try {
-                await ApiService.DeleteUser(id);
+                const response= await ApiService.DeleteUser(id);
+                console.log(response);
                 // If deletion is successful, update the user data
                 // setUserData(userData.filter(user => user.id !== id));
                 toast.success("Foydalanuvchi muvaffaqiyatli o'chirildi!");
-                window.location.reload();
+                // window.location.reload();
             } catch (error) {
                 toast.error("Malumot o'chirilmadi!");
             }

@@ -3,13 +3,18 @@ import { FiDownload } from "react-icons/fi";
 import ApiService  from "../api/ApiService";
 import toast from "react-hot-toast";
 
+interface DocInterfaces {
+    file:string;
+    description:string;
+    id:number;
+}
 const AllDocs: React.FC = () => {
-    const [documents, setDocuments] = useState<any>([]);
+    const [documents, setDocuments] = useState<DocInterfaces[]>([]);
 
     useEffect(() => {
         const fetchDocuments = async () => {
             try {
-                const response = await ApiService.GetAllFiles();
+                const response:DocInterfaces = await ApiService.GetAllFiles();
                 console.log(response);
                 setDocuments(response);
             } catch (error) {
