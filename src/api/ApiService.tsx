@@ -56,6 +56,19 @@ interface NewPoll {
   que6?:string;
   que7?:string;
 }
+interface PollAdmin {
+  id: number;
+  poll_que: string;
+  que1: string | null;
+  que2: string | null;
+  que3: string | null;
+  que4: string | null;
+  que5: string | null;
+  que6: string | null;
+  que7: string | null;
+  time: number;
+  created_at: string;
+}
 const ApiService = {
   getPost: async (): Promise<AxiosResponse<Post[]>> => { // Interfeysni qo'llash
     return axios.get(`${API_BASE_URL}/posts`);
@@ -95,7 +108,13 @@ const ApiService = {
         }
       });
   },
-
+  GetAllPollAdmin :async (): Promise<PollAdmin> => {
+    return axios.get(`${API_Url}/allpoll/get/`, {
+        headers: {
+          "Authorization": `Token ${localStorage.getItem('token')}`
+        }
+      });
+  },
 };
 
 export default ApiService;
