@@ -1,21 +1,10 @@
 import React, { useState } from 'react';
 import ApiService from '../api/ApiService'; // Replace with your actual API service
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import LoadingPage from '../components/LoadingPage';
 
-interface LoginResponse {
-    data: {
-        token: string;
-        staff: string;
-        status: boolean;
-        // Add other properties if necessary
-    };
-    config: object;
-    statusText: string;
-    status: number; // Assuming the response has a status property
-    // Add other properties if necessary
-}
+
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState<string>('');
@@ -26,30 +15,42 @@ const Login: React.FC = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault(); // Prevent default form submission behavior
+
         if (!username || !password) {
             setError('Please fill in all fields.');
             return;
         }
 
-        e.preventDefault();
         setLoading(true); // Show loading indicator
 
         try {
-            const response: LoginResponse = await ApiService.Login(username, password);
+            const response = await ApiService.Login(username, password);
 
-            localStorage.setItem('token', response.data.token);
-            response.status === 200
-                ? toast.success('Login successful!')
-                : toast.error(`Error: ${response.status}`);
+            localStorage.setItem('token', response.data.token); // Store token securely
 
-            if (response.data.staff === 'admin') {
-                navigate('/dashboard');
-            } else if (response.data.staff === 'user') {
-                navigate('/me');
+            if (response.status === 200) { // Assuming successful login has status 200
+                toast.success('Login successful!');
+
+                // Redirect based on user type (secure approach)
+                if (response.data.staff === 'admin') {
+                    navigate('/dashboard');
+                } else if (response.data.staff === 'user') {
+                    navigate('/me');
+                } else {
+                    // Handle unexpected user type or invalid response (security measure)
+                    console.error('Unexpected user type in response:', response.data.staff);
+                    setError('Login failed. Please contact support.');
+                    localStorage.removeItem('token'); // Remove potentially invalid token
+                }
+            } else {
+                toast.error(`Login error: ${response.status}`);
+                setError('Login failed. Please check your credentials.');
             }
         } catch (error) {
-            toast.error('Login failed!');
-            console.error('Login error:', error); // Log the error for debugging
+            // Handle login errors gracefully
+            console.error('Login error:', error);
+            toast.error('Login failed. Please try again later.');
         } finally {
             setLoading(false); // Hide loading indicator
         }
