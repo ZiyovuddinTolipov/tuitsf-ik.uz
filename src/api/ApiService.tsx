@@ -179,6 +179,23 @@ const ApiService = {
         throw new Error("Failed to delete user");
     }
 },
+AddFile: async (file: File, description: string): Promise<any> => {
+  try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('description', description);
+
+      const response = await axios.post(`${API_Url}/add/file/`, formData, {
+          headers: {
+              "Content-Type": "multipart/form-data",
+              "Authorization": `Token ${localStorage.getItem('token')}`
+          }
+      });
+      return response.data;
+  } catch (error) {
+      throw new Error("Failed to add file");
+  }
+}
 };
 
 export default ApiService;
