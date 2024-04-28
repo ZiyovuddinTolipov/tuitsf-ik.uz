@@ -211,7 +211,7 @@ const ApiService = {
         }
       });
   },
-  DeleteUser: async (id: number): Promise<addFileInterface> => {
+  DeleteUser: async (id: number): Promise<any> => {
     try {
         const response = await axios.delete(`${API_Url}/user/delete/`, {
             data: { "user_id":id }, // Pass id in the data object
@@ -241,14 +241,14 @@ AddFile: async (file: File, description: string): Promise<addFileInterface> => {
       throw new Error("Failed to add file");
   }
 },
-GetAllFiles: async (): Promise<Document> => {
+GetAllFiles: async (): Promise<Document[]> => {
   try {
       const response = await axios.get(`${API_Url}/allfiles/`,  {
           headers: {
               "Authorization": `Token ${localStorage.getItem('token')}`
           }
       });
-      return response.data;
+      return response.data as Document[];
   } catch (error) {
       throw new Error("Failed to fetch files");
   }
