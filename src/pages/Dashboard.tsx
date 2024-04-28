@@ -1,13 +1,14 @@
 
 
 import { Routes, Route, Link } from "react-router-dom"
-import { FaAddressBook,FaFile ,FaRegNewspaper ,FaTable  ,FaArrowLeft  } from "react-icons/fa";
+import { FaAddressBook,FaFile ,FaRegNewspaper ,FaTable  ,FaArrowLeft, FaUser  } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import Results from "../components/Results";
 import AddNewUser from "../components/AddNewUser";
 import AddNewDoc from '../components/AddNewDoc'
 import AddElection from "../components/AddElection";
 import ResultElection from "../components/ResultElections";
+import GetAllUsers from "../components/GetAllUsers";
 
 // import {useNavigation} from "react-router-dom"
 
@@ -35,6 +36,7 @@ const Dashboard = () => {
                         <Link to='' className={sty.listElement} ><FaTable /> <span>Natijalar</span></Link>
                         <Link to='add-new-file' className={sty.listElement} ><FaFile /> <span>Fayl qo'shish</span></Link>
                         <Link to='add-new-election' className={sty.listElement} ><FaRegNewspaper /><span>So'rovnoma yaratish</span></Link>
+                        <Link to='all-users' className={sty.listElement} ><FaUser /><span>Foydalanuvchilar</span></Link>
                     </ul>
 
                     <ul className="flex  flex-col gap-2 text-white font-semibold">
@@ -48,6 +50,7 @@ const Dashboard = () => {
                         <Route path="/add-new-file" element={<AddNewDoc />} />
                         <Route path="/add-new-election" element={<AddElection />} />
                         <Route path="/results" element={<ResultElection />} />
+                        <Route path="/all-users" element={<GetAllUsers />} />
                         <Route path="/" element={<Results />} />
                     </Routes>
 

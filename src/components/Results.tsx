@@ -27,7 +27,6 @@ const Results: React.FC = () => {
             try {
                 const res = await ApiService.GetAllPollAdmin();
                 setPollData(res.data);
-                console.log(res.data);
             } catch (error) {
                 console.error('Xato:', error);
                 toast.error('Ma\'lumotlarni olishda xatolik yuz berdi.');
@@ -73,7 +72,7 @@ const Results: React.FC = () => {
             <h2 className="text-3xl font-semibold text-primary-200 text-center">Lavozimlarga tayinlov.</h2>
             <ul className="results_list w-[100%]">
                 {pollData.map((poll: Poll) => (
-                    <Link key={poll.id} to="results" data-aos="flip-down">
+                    <Link key={poll.id} to={`results?id=${poll.id}`} data-aos="flip-down">
                         {isPollEnded(poll) ? <FaUserCheck size={35} /> : <FaUserClock size={35} />}
                         <div className='w-full'>
                             <p className='flex w-full justify-between'>
