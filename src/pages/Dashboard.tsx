@@ -15,10 +15,10 @@ import AllDocs from "../components/AllDocs";
 
 const Dashboard = () => {
     // const navigate = useNavigation();
-
+    
     // localStorage.getItem("role")=="Admin" ? navigate(''):navigate('/')
     const sty = {
-        listElement: "flex items-center  gap-2 px-3 py-2 bg-primary-50 hover:bg-primary-400 transition rounded-md text-primary-200"
+        listElement: "flex items-center  gap-2 px-3 py-2 bg-primary-50 hover:bg-hover-400 transition rounded-md text-primary-200"
     }
     return (
         <main className="w-[100%] min-h-[100vh] bg-primary-400">

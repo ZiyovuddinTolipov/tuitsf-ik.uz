@@ -5,7 +5,12 @@ $fontColor: #fff;
     margin: 20px;
     display: inline-block;
 }
-
+.loading-anima {
+    background: #4825E7;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+}
 //follow me template
 .made-with-love {
     margin-top: 20px;

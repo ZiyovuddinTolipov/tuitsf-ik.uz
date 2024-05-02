@@ -13,15 +13,10 @@ interface NewUser {
   token: string;
 }
 interface NewPoll {
-  poll_que: string;
-  time: string;
-  que1: string;
-  que2: string;
-  que3?: string;
-  que4?: string;
-  que5?: string;
-  que6?: string;
-  que7?: string;
+  status: number;
+  data: {
+    status:number;
+  }
 }
 interface PollAdmin {
   [x: string]: any;

@@ -16,6 +16,9 @@ export default {
           400:"#FEFEFE",
           500:"#4222B1"
         },
+        hover:{
+          400: "#e8edfc",
+        }
       },
       fontFamily:{
         Syne:"Syne",
