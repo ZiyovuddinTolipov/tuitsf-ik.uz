@@ -5,7 +5,7 @@ const API_Url = 'https://voteappstaff.pythonanywhere.com'
 interface Login {
   token: string;
   staff: string;
-  status:boolean;
+  status: boolean;
   username: string;
   password: string;
 }
@@ -15,7 +15,7 @@ interface NewUser {
 interface NewPoll {
   status: number;
   data: {
-    status:number;
+    status: number;
   }
 }
 interface PollAdmin {
@@ -32,28 +32,7 @@ interface PollAdmin {
   time: number;
   created_at: string;
 }
-interface Poll {
-  id: number;
-  poll_que: string;
-  que1: string;
-  que2: string;
-  que3: string | null;
-  que4: string | null;
-  que5: string | null;
-  que6: string | null;
-  que7: string | null;
-  time: number;
-  created_at: string;
-  statistic: {
-    que1: number;
-    que2: number;
-    que3: number | null;
-    que4: number | null;
-    que5: number | null;
-    que6: number | null;
-    que7: number | null;
-  };
-}
+
 interface Document {
   description: string;
   id: number;
@@ -62,15 +41,29 @@ interface Document {
 
 // Define the ApiResponse interface representing the structure of the API response
 interface GetAllPollAdminResponseInterface {
-  data: Poll[];
-  status: number;
-  statusText: string;
-  headers: {
-    "content-type": string;
-  };
-  config: {
-    // Define the configuration properties if needed
-  };
+  data: {
+    poll: {
+      id: number;
+      poll_que: string;
+      created_at: string;
+      que1: string ;
+      que2: string | null;
+      que3: string | null;
+      que4: string | null;
+      que5: string | null;
+      que6: string | null;
+      que7: string | null;
+      time: number;
+    };
+    all_users: number;
+    voted_users: number;
+    neutral: number;
+    num: number;
+    yes1: number;
+    yes2: number;
+    no?: number;
+    yes?: number;
+  }
 }
 interface UserData {
   id: number;
