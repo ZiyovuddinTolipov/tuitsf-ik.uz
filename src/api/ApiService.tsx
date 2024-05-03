@@ -14,6 +14,7 @@ interface NewUser {
 }
 interface NewPoll {
   status: number;
+  statusText: string;
   data: {
     status: number;
   }

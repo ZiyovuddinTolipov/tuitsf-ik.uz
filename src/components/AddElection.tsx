@@ -20,18 +20,19 @@ const NewElections: React.FC = () => {
             time: votingDuration,
         }
         const response = await ApiService.CreateNewPoll(obj);
-        response.data.status  ==201 ? () => {
-
+        if ( response.statusText==="Created") {
             toast.success("So'rovnoma yaratildi!");
             setPosition("");
             setDepartment("");
             setCandidate1("");
             setCandidate2("");
             setVotingDuration("");
-        }: toast.error("So'rovnoma yaratilmadi!") ;
+        } else {
+            toast.error("So'rovnoma yaratilmadi!")
+        }
         
         console.log(response);
-        console.log(obj);
+        // console.log(obj);
         // window.confirm("Natijalar sahifasida ko'rishingiz mumkun yaratilgan so'rovnomani.Natijalar sahifasiga o'tamizmi ?")?navigate("/dashboard"):'';
     };
 
@@ -61,7 +62,7 @@ const NewElections: React.FC = () => {
                     />
                 </label>
                 <label className="form-control w-full max-w-xs">
-                    <span className="label-text text-primary-300 my-2">1-saylanuvchi</span>
+                    <span className="label-text text-primary-300 my-2">1-nomzod</span>
                     <input
                         type="text"
                         placeholder="FISH"
@@ -72,12 +73,11 @@ const NewElections: React.FC = () => {
                     />
                 </label>
                 <label className="form-control w-full max-w-xs">
-                    <span className="label-text text-primary-300 my-2">2-saylanuvchi</span>
+                    <span className="label-text text-primary-300 my-2">2-nomzod. <strong className='text-red-500'>*majburiy emas</strong> </span>
                     <input
                         type="text"
                         placeholder="FISH"
                         className="input input-bordered input-primary w-full max-w-xs bg-primary-50 text-primary-300"
-                        required
                         value={candidate2}
                         onChange={(e) => setCandidate2(e.target.value)}
                     />
@@ -93,7 +93,7 @@ const NewElections: React.FC = () => {
                         onChange={(e) => setVotingDuration(e.target.value)}
                     />
                 </label>
-                <button className="btn btn-primary block max-w-xs w-full my-3" type="submit">Save</button>
+                <button className="btn btn-primary block max-w-xs w-full my-3" type="submit">Saqlash</button>
             </form>
         </div>
     );
