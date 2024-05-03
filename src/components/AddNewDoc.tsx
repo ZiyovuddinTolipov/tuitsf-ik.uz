@@ -22,7 +22,7 @@ const AddNewDoc: React.FC = () => {
             }
         } catch (error) {
             toast.error("Hujjat qo'shishda xatolik");
-            console.error("Failed to add file:", error);
+            // console.error("Failed to add file:", error);
         }
     };
 

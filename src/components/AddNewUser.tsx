@@ -47,7 +47,7 @@ const AddNewUser: React.FC = () => {
                 <input
                     type="text"
                     name="full_name"
-                    placeholder="Tolipov Ziyovuddin"
+                    placeholder="Nazokat Abdullaeva"
                     className={style.input}
                     value={userData.full_name}
                     onChange={handleChange}

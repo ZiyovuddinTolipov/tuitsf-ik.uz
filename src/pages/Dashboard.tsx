@@ -37,12 +37,12 @@ const Dashboard = () => {
                         <Link to='' className={sty.listElement} ><FaTable /> <span>Natijalar</span></Link>
                         <Link to='add-new-file' className={sty.listElement} ><FaFile /> <span>Fayl qo'shish</span></Link>
                         <Link to='all-files' className={sty.listElement} ><FaFileArchive /><span>Hujjatlar</span></Link>
-                        <Link to='add-new-election' className={sty.listElement} ><FaRegNewspaper /><span>So'rovnoma yaratish</span></Link>
-                        <Link to='all-users' className={sty.listElement} ><FaUser /><span>Foydalanuvchilar</span></Link>
+                        <Link to='add-new-election' className={sty.listElement} ><FaRegNewspaper /><span>Tanlov yaratish</span></Link>
+                        <Link to='all-users' className={sty.listElement} ><FaUser /><span>Kengash a'zolari</span></Link>
                     </ul>
 
                     <ul className="flex  flex-col gap-2 text-white font-semibold">
-                        <Link to='add-new-user' className='px-3 py-2 bg-blue-500 hover:bg-blue-600 transition rounded-md w-[200px] flex justify-between items-center' ><span>Yangi foydalanuvchi</span> <FaAddressBook /></Link>
+                        <Link to='add-new-user' className='px-3 py-2 bg-blue-500 hover:bg-blue-600 transition rounded-md w-[200px] flex justify-between items-center' ><span>A'zo qo'shish</span> <FaAddressBook /></Link>
                         <Link to="/" className='px-3 py-2 bg-red-500 hover:bg-red-600 transition rounded-md w-[200px] flex justify-between items-center' ><span>Chiqish</span> <FaArrowLeft size={23}/></Link>
                     </ul>
                 </div>
