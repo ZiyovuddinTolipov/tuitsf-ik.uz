@@ -27,6 +27,7 @@ const Results: React.FC = () => {
             try {
                 const { data: pollData } = await ApiService.GetAllPollAdmin();
                 setPollData(pollData);
+                console.log(pollData);
             } catch (error) {
                 // Handle errors
                 toast.error('Ma\'lumotlarni olishda xatolik yuz berdi.');
@@ -34,14 +35,6 @@ const Results: React.FC = () => {
         };
 
         fetchData();
-
-        // Avtomatik ravishda ma'lumotlarni yangilash
-        const intervalId = setInterval(() => {
-            fetchData();
-        }, 60000); // 1 daqiya (60 * 1000 millisekund)
-
-        // Komponent chiqishida intervalni to'xtatish
-        return () => clearInterval(intervalId);
     }, []);
 
     // Function to calculate the remaining time until the end of the poll in days:hours:minutes:seconds format
@@ -61,7 +54,7 @@ const Results: React.FC = () => {
             <h2 className="text-3xl font-semibold text-primary-200 text-center">Lavozimlarga tayinlov.</h2>
             <ul className="results_list w-[100%]">
                 {pollData.map((poll: Poll) => (
-                    <Link key={poll.id} to={`results?id=${poll.id}`} data-aos="flip-down">
+                    <Link key={poll.id} to={`results?id=${poll.id}`}>
                         <FaUserCheck size={35} />
                         <div className='w-full'>
                             <p className='flex w-full justify-between'>
