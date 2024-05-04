@@ -64,7 +64,7 @@ const Login: React.FC = () => {
                 <div className="w-full  rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 bg-primary-400 backdrop-blur-md border-gray-700" data-aos="flip-up">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <Link to="/" className="flex items-center justify-center mb-6 text-2xl font-semibold w-[100%]">
-                            <h3 className='text-2xl font-semibold text-primary-500' >StuVotes</h3>
+                            <h3 className='text-2xl font-semibold text-primary-500 uppercase' >tuitsf-ik.uz</h3>
                         </Link>
                         <form className="space-y-4 md:space-y-6 font-Poppins text-black" onSubmit={handleSubmit} >
                             {error && <p style={{ color: 'red' }}>{error}</p>}
