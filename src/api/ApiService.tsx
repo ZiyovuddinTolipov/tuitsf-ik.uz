@@ -66,6 +66,28 @@ interface GetAllPollAdminResponseInterface {
     yes?: number;
   }
 }
+// interface GetAllPollUserResponseInterface {
+//   data: {
+//     poll: {
+//       id: number;
+//       poll_que: string;
+//       created_at: string;
+//       que1: string ;
+//       que2: string | null;
+//       que3: string | null;
+//       que4: string | null;
+//       que5: string | null;
+//       que6: string | null;
+//       que7: string | null;
+//       time: number;
+//     };
+//     num: number;
+//     yes1?: number;
+//     yes2?: number;
+//     no?: number;
+//     yes?: number;
+//   }
+// }
 interface UserData {
   id: number;
   username: string;
@@ -142,6 +164,13 @@ const ApiService = {
   },
   GetAllPollAdmin: async (): Promise<PollAdmin> => {
     return axios.get(`${API_Url}/allpoll/get/`, {
+      headers: {
+        "Authorization": `Token ${localStorage.getItem('token')}`
+      }
+    });
+  },
+  GetAllPollUser: async (): Promise<PollAdmin> => {
+    return axios.get(`${API_Url}/vote/poll/`, {
       headers: {
         "Authorization": `Token ${localStorage.getItem('token')}`
       }
