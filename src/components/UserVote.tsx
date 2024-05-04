@@ -35,6 +35,7 @@ const Results: React.FC = () => {
                 }
                 const res = await ApiService.GetElectionUser(parseInt(id));
                 setPollData(res.data);
+                console.log(res.data);
             } catch (error) {
                 setError((error as Error).message);
                 console.log(error);
@@ -68,6 +69,27 @@ const Results: React.FC = () => {
             toast.error("ovoz berish tasdiqlanmadi !");
         }
     };
+    const handleOneClick = async (option: string) => {
+        if (window.confirm('Ovoz berishni tasdiqlang!')) {
+            try {
+                const id = searchParams.get('id');
+                if (!id) {
+                    toast.error("Mavjud bo'lmagan havola!");
+                    throw new Error("ID parameter is missing.");
+                }
+                const res = await ApiService.VotePoll(parseInt(id), option);
+                console.log(res);
+                res.status ? (() => {
+                    toast.success("Ovoz berildi!");
+                    navigate('/me/elections');
+                })() : '';
+            } catch (error) {
+                setError((error as Error).message);
+            }
+        } else {
+            toast.error("ovoz berish tasdiqlanmadi !");
+        }
+    };
     const handleNeutral = async (option: string) => {
         try {
             const id = searchParams.get('id');
@@ -89,22 +111,43 @@ const Results: React.FC = () => {
             {error ? (
                 <p className="text-red-500">Malumotlarni yuklab bo'lmadi!</p>
             ) : (
-                pollData && pollData.que3? (
+                pollData && pollData.que3 ? (
                     <>
                         <h2 className="text-3xl font-semibold text-primary-200 text-center">{pollData.que3} kafedrasi {pollData.poll_que} lavozimiga</h2>
                         <ul className="results_list">
-                            {Object.entries(pollData).slice(2).map(([key, value]) => (
-                                value && key !== 'time' && key !== 'created_at' && ( // Exclude 'time' and 'created_at' properties
-                                    <li key={key} data-aos="flip-down" className="flex justify-between">
-                                        <span>{value}</span>
-                                        <button onClick={() => handleButtonClick(key)}>HA</button>
-                                    </li>
+                            {
+                                pollData.que2 ? (Object.entries(pollData).slice(2).map(([key, value]) => (
+                                    value && key !== 'time' && key !== 'created_at' && key !== "que3" &&  ( // Exclude 'time' and 'created_at' properties
+                                        <li key={key} data-aos="flip-down" className="flex justify-between">
+                                            <span>{value}</span>
+                                            <button className="btn btn-success text-white px-2 py-1 w-[50px]" onClick={() => handleButtonClick(key)}>HA</button>
+                                        </li>
+                                    )
+                                ))) : (
+                                    Object.entries(pollData).slice(2).map(([key, value]) => (
+                                        value && key !== 'time' && key !== 'created_at' && key !== "que3" && ( // Exclude 'time' and 'created_at' properties
+                                            <li key={key} data-aos="flip-down" className="flex justify-between">
+                                                <span>{value}</span>
+                                                <div className="flex gap-2">
+                                                    <button className="btn btn-error text-white px-2 py-1 w-[50px]" onClick={() => handleOneClick('a2')}>YO'Q</button>
+                                                    <button className="btn btn-success text-white px-2 py-1 w-[50px]" onClick={() => handleOneClick('a1')}>HA</button>
+                                                    <button className="btn btn-info text-white px-2 py-1 " onClick={() => handleNeutral('0')}>Betaraf</button>
+
+                                                </div>
+                                            </li>
+                                        )
+                                    ))
                                 )
-                            ))}
+                            }
+
                         </ul>
-                        <div className="flex justify-end items-end">
-                            <button className="btn btn-info text-white" onClick={() => handleNeutral('0')}>Betaraf</button>
-                        </div>
+                        {
+                            pollData.que2 && (
+                                <div className="flex justify-end items-end">
+                                    <button className="btn btn-info text-white" onClick={() => handleNeutral('0')}>Betaraf</button>
+                                </div>
+                            )
+                        }
                     </>
                 ) : (
                     <h1>Siz ovoz bergansiz!</h1>
