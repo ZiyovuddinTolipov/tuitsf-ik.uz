@@ -1,7 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ApiService from "../api/ApiService";
-import LoadingPage from "./LoadingPage";
 import { MdDeleteOutline } from "react-icons/md";
 import { toast } from "react-hot-toast";
 
@@ -13,7 +12,6 @@ interface UserData {
 
 const Results: React.FC = () => {
     const [searchParams] = useSearchParams();
-    const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [userData, setUserData] = useState<UserData[]>([]);
 
@@ -23,10 +21,8 @@ const Results: React.FC = () => {
                 const res = await ApiService.GetAllUsers();
                 console.log(res);
                 setUserData(res.data.filter((user: { id: number; }) => user.id !== 1));
-                setLoading(false);
             } catch (error) {
                 setError("Malumotlarni yuklab bo'lmadi!");
-                setLoading(false);
             }
         };
 
@@ -54,9 +50,7 @@ const Results: React.FC = () => {
     return (
         <div className="text-primary-200 results">
             <h2 className="text-3xl font-semibold text-primary-200 text-center">Foydalanuvchilar</h2>
-            {loading ? (
-                <LoadingPage />
-            ) : error ? (
+            { error ? (
                 <p className="text-red-500">{error}</p>
             ) : (
                 <table className="table mt-3 text-xl font-medium">

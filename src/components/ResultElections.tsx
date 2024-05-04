@@ -62,7 +62,7 @@ const Results: React.FC = () => {
                         <h2 className="text-3xl font-semibold text-primary-200 text-center">{pollData.poll.poll_que}</h2>
                         <ul className="results_list">
                             {Object.entries(pollData.poll).slice(2, -3).map(([key, value]) => (
-                                value && (
+                                value && key !== "que3" && (
                                     <li key={key} data-aos="flip-down" className="flex justify-between">
                                         <span>{value}</span>
                                         <span>Jami: {pollData.all_users} | qatnashganlar: {pollData.voted_users} | Rozilar: {pollData.yes} | Qarshilar: {pollData.no} |  Betaraf: {pollData.neutral}</span>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { FaUserCheck, FaUserClock } from 'react-icons/fa';
+import { FaUserCheck } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import moment, { Moment } from 'moment'; // moment.js kutubxonasi
+import moment from 'moment'; // moment.js kutubxonasi
 import ApiService from '../api/ApiService';
 import toast from 'react-hot-toast';
 
@@ -45,18 +45,8 @@ const Results: React.FC = () => {
     }, []);
 
     // Function to calculate the remaining time until the end of the poll in days:hours:minutes:seconds format
-    const calculateRemainingTime = (endTime: string, duration: number): string => {
-        const startDateTime: Moment = moment(endTime);
-        const endDateTime: Moment = startDateTime.clone().add(duration, 'hours');
-        const remainingTime: number = endDateTime.diff(moment(), 'seconds');
-        const days: number = Math.floor(remainingTime / (60 * 60 * 24));
-        const hours: number = Math.floor((remainingTime % (60 * 60 * 24)) / (60 * 60));
-        const minutes: number = Math.floor((remainingTime % (60 * 60)) / 60);
-        const seconds: number = remainingTime % 60;
-        return `${days}k ${hours}s ${minutes}m ${seconds}son`;
-    };
-    
-    
+
+
 
     // Function to format date using moment.js
     const formatDate = (dateString: string): string => {
@@ -64,10 +54,7 @@ const Results: React.FC = () => {
     };
 
     // Function to check if poll has ended
-    const isPollEnded = (poll: Poll): boolean => {
-        const endDateTime: Moment = moment(poll.created_at).add(poll.time, 'hours');
-        return moment().isAfter(endDateTime);
-    };
+
 
     return (
         <div className="text-primary-200 results">
@@ -75,11 +62,11 @@ const Results: React.FC = () => {
             <ul className="results_list w-[100%]">
                 {pollData.map((poll: Poll) => (
                     <Link key={poll.id} to={`results?id=${poll.id}`} data-aos="flip-down">
-                        {isPollEnded(poll) ? <FaUserCheck size={35} /> : <FaUserClock size={35} />}
+                        <FaUserCheck size={35} />
                         <div className='w-full'>
                             <p className='flex w-full justify-between'>
                                 <span>Lavozim nomi: <span className='text-primary-400'>{poll.poll_que}</span></span>
-                                <span>{isPollEnded(poll) ?  <span className='bg-red-500 p-1 text-primary-50 rounded-md'>Tugagan</span>:`${calculateRemainingTime(poll.created_at, poll.time)} `}</span>
+                                {/* <span> <span className='bg-red-500 p-1 text-primary-50 rounded-md'>Tugagan</span></span> */}
                             </p>
                             {`Boshlangan vaqt: ${formatDate(poll.created_at)}`}
                         </div>

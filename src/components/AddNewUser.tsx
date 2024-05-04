@@ -51,6 +51,7 @@ const AddNewUser: React.FC = () => {
                     className={style.input}
                     value={userData.full_name}
                     onChange={handleChange}
+                    required
                 />
             </label>
             <label className="form-control w-full max-w-xs">
@@ -62,6 +63,7 @@ const AddNewUser: React.FC = () => {
                     className={style.input}
                     value={userData.username}
                     onChange={handleChange}
+                    required
                 />
             </label>
             <label className="form-control w-full max-w-xs">
@@ -73,6 +75,7 @@ const AddNewUser: React.FC = () => {
                     className={style.input}
                     value={userData.password}
                     onChange={handleChange}
+                    required
                 />
             </label>
             <button type="submit" className="btn btn-primary max-w-xs w-full my-3">Saqlash</button>
