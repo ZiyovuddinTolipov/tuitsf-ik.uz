@@ -27,7 +27,7 @@ const Results: React.FC = () => {
             try {
                 const { data: pollData } = await ApiService.GetAllPollUser();
                 setPollData(pollData);
-                console.log("data",pollData);
+                console.log("data", pollData);
             } catch (error) {
                 // Handle errors
                 toast.error('Ma\'lumotlarni olishda xatolik yuz berdi.');
@@ -45,24 +45,6 @@ const Results: React.FC = () => {
         return () => clearInterval(intervalId);
     }, []);
 
-    // Function to calculate the remaining time until the end of the poll in days:hours:minutes:seconds format
-    const calculateRemainingTime = (endTime: string, duration: number): string => {
-        const startDateTime: Moment = moment(endTime);
-        const endDateTime: Moment = startDateTime.clone().add(duration, 'hours');
-        const remainingTime: number = endDateTime.diff(moment(), 'seconds');
-        const days: number = Math.floor(remainingTime / (60 * 60 * 24));
-        const hours: number = Math.floor((remainingTime % (60 * 60 * 24)) / (60 * 60));
-        const minutes: number = Math.floor((remainingTime % (60 * 60)) / 60);
-        const seconds: number = remainingTime % 60;
-        return `${days}k ${hours}s ${minutes}m ${seconds}son`;
-    };
-    
-    
-
-    // Function to format date using moment.js
-    const formatDate = (dateString: string): string => {
-        return moment(dateString).format('D MMMM YYYY, h:mm:ss a');
-    };
 
     // Function to check if poll has ended
     const isPollEnded = (poll: Poll): boolean => {
@@ -77,12 +59,11 @@ const Results: React.FC = () => {
                 {pollData.map((poll: Poll) => (
                     <Link key={poll.id} to={`results?id=${poll.id}`} data-aos="flip-down">
                         {isPollEnded(poll) ? <FaUserCheck size={35} /> : <FaUserClock size={35} />}
-                        <div className='w-full'>
-                            <p className='flex w-full justify-between'>
-                                <span>Lavozim nomi: <span className='text-primary-400'>{poll.poll_que}</span></span>
-                                <span>{isPollEnded(poll) ?  <span className='bg-red-500 p-1 text-primary-50 rounded-md'>Tugagan</span>:`${calculateRemainingTime(poll.created_at, poll.time)} `}</span>
+                        <div className='w-full flex justify-between items-center'>
+                            <p className=''>
+                                Lavozim: {poll.poll_que}
                             </p>
-                            {`Boshlangan vaqt: ${formatDate(poll.created_at)}`}
+                                <button className='btn btn-primary text-white'>Ishtirok etish</button>
                         </div>
                     </Link>
                 ))}
