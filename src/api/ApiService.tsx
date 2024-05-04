@@ -47,7 +47,7 @@ interface GetAllPollAdminResponseInterface {
       id: number;
       poll_que: string;
       created_at: string;
-      que1: string ;
+      que1: string;
       que2: string | null;
       que3: string | null;
       que4: string | null;
@@ -170,14 +170,21 @@ const ApiService = {
     });
   },
   GetAllPollUser: async (): Promise<PollAdmin> => {
-    return axios.get(`${API_Url}/vote/poll/`, {
+    return axios.get(`${API_Url}/polls/`, {
       headers: {
         "Authorization": `Token ${localStorage.getItem('token')}`
       }
     });
   },
-  GetElectionResults: async (id: string): Promise<GetAllPollAdminResponseInterface> => {
+  GetElectionResults: async (id: number): Promise<GetAllPollAdminResponseInterface> => {
     return axios.post(`${API_Url}/poll/statistic/`, { "id": id }, {
+      headers: {
+        "Authorization": `Token ${localStorage.getItem('token')}`
+      }
+    });
+  },
+  GetElectionuUser: async (id: number): Promise<GetAllPollAdminResponseInterface> => {
+    return axios.post(`${API_Url}/get/poll/${id}`, {
       headers: {
         "Authorization": `Token ${localStorage.getItem('token')}`
       }
@@ -231,7 +238,24 @@ const ApiService = {
     } catch (error) {
       throw new Error("Failed to fetch files");
     }
+  },
+  VotePoll: async (id:number,ans:string) => {
+    try {
+      console.log(id,ans);
+      const response = await axios.put(`${API_Url}/vote/poll/`, {
+        "id": id,
+        "answer":ans
+      }, {
+        headers: {
+          "Authorization": `Token ${localStorage.getItem('token')}`
+        }
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error("Error: " + error);
+    }
   }
+
 };
 
 export default ApiService;

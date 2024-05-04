@@ -35,14 +35,6 @@ const Results: React.FC = () => {
         };
 
         fetchData();
-
-        // Avtomatik ravishda ma'lumotlarni yangilash
-        const intervalId = setInterval(() => {
-            fetchData();
-        }, 60000); // 1 daqiya (60 * 1000 millisekund)
-
-        // Komponent chiqishida intervalni to'xtatish
-        return () => clearInterval(intervalId);
     }, []);
 
 

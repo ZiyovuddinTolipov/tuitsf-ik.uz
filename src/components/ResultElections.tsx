@@ -41,7 +41,7 @@ const Results: React.FC = () => {
                     toast.error("Mavjud bo'lmagan havola!");
                     throw new Error("ID parameter is missing.");
                 }
-                const res = await ApiService.GetElectionResults(id);
+                const res = await ApiService.GetElectionResults(parseInt(id));
                 setPollData(res.data);
                 console.log(res);
             } catch (error) {
