@@ -54,7 +54,7 @@ const Results: React.FC = () => {
 
     return (
         <div className="text-primary-200 results">
-              {error ? (
+            {error ? (
                 <p className="text-red-500">Malumotlarni yuklab bo'lmadi!</p>
             ) : (
                 pollData && (

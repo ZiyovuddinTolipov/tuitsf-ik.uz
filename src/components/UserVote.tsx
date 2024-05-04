@@ -32,6 +32,7 @@ const Results: React.FC = () => {
     const [searchParams] = useSearchParams();
     const [pollData, setPollData] = useState<PollData | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [clickedOption, setClickedOption] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchPollData = async () => {
@@ -43,7 +44,6 @@ const Results: React.FC = () => {
                 }
                 const res = await ApiService.GetElectionResults(id);
                 setPollData(res.data);
-                console.log(res);
             } catch (error) {
                 setError((error as Error).message);
             }
@@ -51,6 +51,11 @@ const Results: React.FC = () => {
 
         fetchPollData();
     }, [searchParams]);
+
+    // Function to handle button click
+    const handleButtonClick = (option: string) => {
+        setClickedOption(option);   
+    };  
 
     return (
         <div className="text-primary-200 results">
@@ -61,15 +66,18 @@ const Results: React.FC = () => {
                     <>
                         <h2 className="text-3xl font-semibold text-primary-200 text-center">{pollData.poll.poll_que}</h2>
                         <ul className="results_list">
-                            {Object.entries(pollData.poll).slice(2, -3).map(([key, value]) => (
+                            {Object.entries(pollData.poll).slice(2, 4).map(([key, value]) => (
                                 value && (
                                     <li key={key} data-aos="flip-down" className="flex justify-between">
                                         <span>{value}</span>
-                                        <span>Jami: {pollData.all_users} | qatnashganlar: {pollData.voted_users} | Rozilar: {pollData.yes} | Qarshilar: {pollData.no} |  Betaraf: {pollData.neutral}</span>
+                                        <button onClick={() => handleButtonClick(key)}>HA</button>
                                     </li>
                                 )
                             ))}
                         </ul>
+                        {clickedOption && (
+                            <p>{`${clickedOption} bosildi`}</p>
+                        )}
                     </>
                 )
             )}
