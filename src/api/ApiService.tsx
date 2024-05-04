@@ -23,9 +23,9 @@ interface PollAdmin {
   [x: string]: any;
   id: number;
   poll_que: string;
-  que1: string | null;
+  que1: string ;
   que2: string | null;
-  que3: string | null;
+  que3: string ;
   que4: string | null;
   que5: string | null;
   que6: string | null;
@@ -183,10 +183,11 @@ const ApiService = {
       }
     });
   },
-  GetElectionuUser: async (id: number): Promise<GetAllPollAdminResponseInterface> => {
-    return axios.post(`${API_Url}/get/poll/${id}`, {
+  GetElectionUser: async (id: number): Promise<GetAllPollAdminResponseInterface> => {
+
+    return axios.post(`${API_Url}/get/poll/${id}`,{ "id": "asdasd" }, {
       headers: {
-        "Authorization": `Token ${localStorage.getItem('token')}`
+        "Authorization": `Token ${localStorage.getItem("token")}`
       }
     });
   },
