@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
 
-const API_Url = 'https://ebozorapi.pythonanywhere.com/'
+const API_Url = 'https://ebozorapi.pythonanywhere.com'
 interface Login {
   token: string;
   staff: string;
