@@ -66,7 +66,7 @@ const Results: React.FC = () => {
                         {userData.map((user,index) => (
                             user.username !== "Admin" && user.username !== "admin" &&
                             <tr key={user.id}>
-                                <td>{index+1}</td>
+                                <td>{index}</td>
                                 <td>@{user.username}</td>
                                 <td>{user.firstname}</td>
                                 <td>

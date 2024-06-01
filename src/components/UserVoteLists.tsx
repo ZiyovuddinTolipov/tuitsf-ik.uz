@@ -46,7 +46,7 @@ const Results: React.FC = () => {
 
     return (
         <div className="text-primary-200 results">
-            <h2 className="text-3xl font-semibold text-primary-200 text-center">Lavozimlarga tayinlov.</h2>
+            <h2 className="text-3xl font-semibold text-primary-200 text-center">Lavozimlarga tanlov.</h2>
             <ul className="results_list w-[100%]">
                 {pollData.map((poll: Poll) => (
                     <Link key={poll.id} to={`results?id=${poll.id}`} data-aos="flip-down">
