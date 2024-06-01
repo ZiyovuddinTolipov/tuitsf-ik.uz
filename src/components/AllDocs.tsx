@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FiDownload } from "react-icons/fi";
+import { MdDelete } from "react-icons/md";
 import ApiService from "../api/ApiService";
 import toast from "react-hot-toast";
 
@@ -34,6 +35,22 @@ const AllDocs: React.FC = () => {
             toast.error('Hujjat topilmadi!');
         }
     };
+    const handleDeletedFile = async (id: number) => {
+        const confirmed = window.confirm("O'chirishni tasdiqlang");
+        if (confirmed) {
+            try {
+                const response = await ApiService.DeleteFile(id);
+                if (response.status === 200) {
+                    toast.success("Hujjat o'chirildi!");
+                    window.location.reload();
+                }
+                // console.log(response);
+            } catch (error) {
+                toast.error("Hujjat o'chirishda xatolik yuz berdi!");
+                console.error("Failed to fetch documents:", error);
+            }
+        }
+    }
 
     return (
         <div className="text-primary-200 results">
@@ -42,9 +59,14 @@ const AllDocs: React.FC = () => {
                 {documents.map((doc: DocInterfaces, index: number) => (
                     <li key={index} data-aos="flip-down" className="flex justify-between">
                         <span>{doc.description}</span>
-                        <button className="btn btn-primary text-primary-50" onClick={() => doc.file && handleDownload(doc.file)}>
-                            <FiDownload /> Yuklab olish
-                        </button>
+                        <div >
+                            <button className="btn btn-error text-primary-50 mr-5" onClick={() => doc.file && handleDeletedFile(doc.id)}>
+                                <MdDelete /> {doc.id}
+                            </button>
+                            <button className="btn btn-primary text-primary-50" onClick={() => doc.file && handleDownload(doc.file)}>
+                                <FiDownload /> Yuklab olish
+                            </button>
+                        </div>
                     </li>
                 ))}
             </ol>

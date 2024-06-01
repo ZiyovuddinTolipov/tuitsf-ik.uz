@@ -122,6 +122,10 @@ interface AllUserInterfaces {
 interface addFileInterface {
   status: boolean;
 }
+interface DeleteFileInterface {
+  status: number;
+  statusText?: string;
+}
 const ApiService = {
   Login: async (username: string, password: string): Promise<Login> => {
     console.log(username + ' ' + password);
@@ -220,6 +224,20 @@ const ApiService = {
       return response.data;
     } catch (error) {
       throw new Error("Failed to add file");
+    }
+  },
+  DeleteFile: async (id:number):Promise<DeleteFileInterface> => {
+    try {
+      const response = await axios.delete(`${API_Url}/delete/file/`, {
+        headers: {
+          "Authorization": `Token ${localStorage.getItem('token')}`
+        },
+        data: { id } // Including the id in the data field
+      });
+      // console.log(response);
+      return response;
+    } catch (error) {
+      throw new Error("Failed to delete file");
     }
   },
   GetAllFiles: async (): Promise<Document[]> => {
