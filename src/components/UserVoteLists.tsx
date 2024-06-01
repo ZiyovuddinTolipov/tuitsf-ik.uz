@@ -55,7 +55,7 @@ const Results: React.FC = () => {
                             <p className=''>
                                 Lavozim: {poll.poll_que}
                             </p>
-                                <button className='btn btn-primary text-white'>Ishtirok etish</button>
+                                <button className='btn btn-primary text-white'>Ovoz berish</button>
                         </div>
                     </Link>
                 ))}
