@@ -61,7 +61,7 @@ const AllDocs: React.FC = () => {
                         <span>{doc.description}</span>
                         <div >
                             <button className="btn btn-error text-primary-50 mr-5" onClick={() => doc.file && handleDeletedFile(doc.id)}>
-                                <MdDelete /> {doc.id}
+                                <MdDelete />
                             </button>
                             <button className="btn btn-primary text-primary-50" onClick={() => doc.file && handleDownload(doc.file)}>
                                 <FiDownload /> Yuklab olish
